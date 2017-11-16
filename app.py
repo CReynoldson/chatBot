@@ -18,6 +18,7 @@ def verify():
         return request.args["hub.challenge"], 200
 
     return "Hello world", 200
+
 @app.route('/', methods=['POST'])
 def webhook():
 
@@ -37,7 +38,9 @@ def webhook():
                     recipient_id = messaging_event["recipient"]["id"]  # the recipient's ID, which should be your page's facebook ID
                     message_text = messaging_event["message"]["text"]  # the message's text
 
-                    send_message(sender_id, "roger that!")
+                    response = parse_message(message_text)
+                    if message_text.lower().startswith("cinebun"):
+                        send_message(sender_id, response)
 
                 if messaging_event.get("delivery"):  # delivery confirmation
                     pass
@@ -50,6 +53,9 @@ def webhook():
 
     return "ok", 200
 
+def parse_message(text):
+    if "donald trump" in text.lower() or "trump" in text.lower():
+        return "Oh my God fuck that guy am I right?"
 
 def send_message(recipient_id, message_text):
 
