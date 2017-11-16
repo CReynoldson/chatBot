@@ -2,6 +2,8 @@ import os
 import sys
 import json
 from datetime import datetime
+from random import randint
+
 
 import requests
 from flask import Flask, request
@@ -53,9 +55,14 @@ def webhook():
 
     return "ok", 200
 
+def insult_the_cheeto():
+    return INSULTS[randint(0, len(INSULTS))]
+
 def parse_message(text):
     if "donald trump" in text.lower() or "trump" in text.lower():
-        return "Oh my God fuck that guy am I right?"
+        insult = insult_the_cheeto()
+        return insult
+    return "I'm not set up yet but I'm excited you're here and I love you :)"
 
 def send_message(recipient_id, message_text):
 
