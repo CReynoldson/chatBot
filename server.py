@@ -1,5 +1,13 @@
-from flask import Flask
+import os
+import sys
+import json
+from datetime import datetime
+
+import requests
+from flask import Flask, request
+
 app = Flask(__name__)
+
 
 @app.route("/")
 def hello():
@@ -17,3 +25,5 @@ def verify():
 
     return "Hello world", 200
 
+if __name__ == '__main__':
+    app.run(debug=True)
